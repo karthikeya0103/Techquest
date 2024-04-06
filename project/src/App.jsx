@@ -1,35 +1,84 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email !== "" && password !== "") {
+      setLoggedIn(true);
+    }
+    setEmail("");
+    setPassword("");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App-header">
+      {loggedIn ? (
+        <div className="App-header">
+          <h1>What kind of therapy are you looking for?</h1>
+          <div className="buttondiv">
+            <Link to="myself" className="btn btn-primary custombutton">
+              For myself
+            </Link>
+            <Link
+              to="relationshipp"
+              className="btn btn-primary custombutton"
+            >
+              Relationship
+            </Link>
+            <Link to="children" className="btn btn-primary custombutton">
+              Children
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <h3>Welcome to mental health survey!</h3>
+          <div className="mb-3">
+            <label>Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          <div className="d-grid">
+            <button type="submit" className="btn btn-primary">
+              Start
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
