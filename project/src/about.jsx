@@ -12,10 +12,11 @@ const About = () => {
         </p>
       </main>
       <nav className="about-nav">
-        <Link to="/" className="about-link">Home</Link>
+        <Link to="/" className="about-link">Return to Home</Link>
       </nav>
     </div>
   );
 }
 
 export default About;
+
